@@ -29,3 +29,8 @@ for file in $files; do
 	echo "Creating symlink to $file in home directory."
 	ln -s $dir/$file ~/.$file
 done
+
+# source .bashrc so the current bash instance will acknowledge changes to dotfiles like .bash_aliases
+echo "Sourcing ~/.bashrc"
+source ~/.bashrc
+echo "...done"
