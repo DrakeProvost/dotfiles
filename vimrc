@@ -73,11 +73,13 @@ vnoremap kj <Esc>
 cnoremap kj <C-C>
 
 " (@author Drake Provost) Uncomment the following to make it easier to end
-" control structures in shell scripts
+" control structures in shell scripts (case...esac pair might not work)
 " if statements:
-inoremap fi<CR> <BS>fi<Esc>O
+"inoremap fi<CR> <BS>fi<Esc>O
+autocmd FileType sh iab <buffer> then then<CR>fi<C-o>O<SPACE><BS><C-o>z
 " case statements:
-inoremap c<CR> c<Esc>O
+"inoremap c<CR> c<Esc>O
+autocmd FileType sh iab <buffer> case case<CR>esac<C-o>O<SPACE><BS><C-o>z 
 " for, while, until, and select loops:
-inoremap one<CR> one<Esc>O
-
+"inoremap one<CR> one<Esc>O
+autocmd FileType sh iab <buffer> do do<CR>done<C-o>O<SPACE><BS><C-o>z
