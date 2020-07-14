@@ -73,13 +73,40 @@ vnoremap kj <Esc>
 cnoremap kj <C-C>
 
 " (@author Drake Provost) Uncomment the following to make it easier to end
-" control structures in shell scripts (case...esac pair might not work)
+" control structures in shell scripts
+"function! CloseSh(start, end, before)
+"    " Entering the actual start
+"    exe"norm!i".a:start
+"      
+"   " Making sure that the 'before' is on the same line,
+"    " or one line before cursor
+"    if search('.*'.a:before.'.*\n\?.*\%#', 'n') == '0'
+"        " If it's not the case, we behave as if nothing happened
+"        exe"norm!a\<SPACE>"
+"        call setpos('.', [0, line('.'), 1000, 0, 1000])
+"        return
+"    endif
+"
+"    " If match found, we can continue:
+"    " adding the end tag bellow
+"    exe"norm!o".a:end
+    " new line above"
+"    exe"norm!O\<SPACE>\<BS>"
+"    " force cursor at the end of line
+"    call setpos('.', [0, line('.'), 1000, 0, 1000])
+"endfunction
 " if statements:
-"inoremap fi<CR> <BS>fi<Esc>O
-autocmd FileType sh iab <buffer> then then<CR>fi<C-o>O<SPACE><BS><C-o>z
+inoremap fi<CR> <BS>fi<Esc>O
+"autocmd FileType sh iab <buffer> then then<CR>fi<C-o>O<SPACE><BS><C-o>z
+"autocmd FileType sh inoreab <buffer> then :call CloseSh('then', 'fi', '\<if\>')<CR><C-o>z
 " case statements:
-"inoremap c<CR> c<Esc>O
-autocmd FileType sh iab <buffer> case case<CR>esac<C-o>O<SPACE><BS><C-o>z 
+inoremap c<CR> c<Esc>O
+"autocmd FileType sh iab <buffer> case case<CR>esac<C-o>O<SPACE><BS><C-o>z 
+"autocmd FileType sh inoreab <buffer> in :call CloseSh('in', 'esac', '\<case\>')<CR><C-o>z
 " for, while, until, and select loops:
-"inoremap one<CR> one<Esc>O
-autocmd FileType sh iab <buffer> do do<CR>done<C-o>O<SPACE><BS><C-o>z
+inoremap one<CR> one<Esc>O
+"autocmd FileType sh iab <buffer> do do<CR>done<C-o>O<SPACE><BS><C-o>z
+"autocmd FileType sh inoreab <buffer> do :call CloseSh('do', 'done', '\<for\>')<CR><C-o>z
+"autocmd FileType sh inoreab <buffer> do :call CloseSh('do', 'done', '\<while\>')<CR><C-o>z
+"autocmd FileType sh inoreab <buffer> do :call CloseSh('do', 'done', '\<until\>')<CR><C-o>z
+"autocmd FileType sh inoreab <buffer> do :call CloseSh('do', 'done', '\<select\>')<CR><C-o>z
