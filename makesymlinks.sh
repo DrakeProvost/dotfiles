@@ -9,7 +9,7 @@
 dir=~/dotfiles				# dotfiles directory
 olddir=~/dotfiles_old			# old dotfiles backup directory
 files="bash_aliases bashrc vimrc"	# list of files/folders to symlink in homedir
-bashrc_link_created="false"
+#bashrc_link_created="false"
 
 ##########
 
@@ -31,16 +31,16 @@ for file in $files; do
 		echo "Creating symlink to $dir/$file in ~"
 		ln -s $dir/$file ~/.$file
 
-		if [ "$file" = "bashrc" ]; then
-			bashrc_link_created="true"
-		fi
+#		if [ "$file" = "bashrc" ]; then
+#			bashrc_link_created="true"
+#		fi
 	fi
 done
 
 # source .bashrc
 #echo "Sourcing .bashrc to guarantee any potential changes take effect immediately"
 #source ~/.bashrc	#I forgot once again that shell scripts will ignore this
-if [ "$bashrc_link_created" = "true" ]; then
-	printf "\nA symlink to $dir/bashrc was created. To complete the setup, please run the following command:\n\n"
-	printf "\tsource ~/.bashrc\n\n"
-fi
+#if [ "$bashrc_link_created" = "true" ]; then	#commented out since I realized updates to .bashrc need sourcing too
+printf "\nTo complete the setup, please run the following command:\n\n"
+printf "\tsource ~/.bashrc\n\n"
+#fi
