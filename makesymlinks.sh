@@ -8,7 +8,8 @@
 
 dir=~/dotfiles				# dotfiles directory
 olddir=~/dotfiles_old			# old dotfiles backup directory
-files="vimrc bash_aliases bashrc"	# list of files/folders to symlink in homedir
+files="bash_aliases bashrc vimrc"	# list of files/folders to symlink in homedir
+bashrc_link_created="false"
 
 ##########
 
@@ -19,7 +20,9 @@ mkdir -p $olddir
 # move any existing dotfiles in homedir to dotfiles_old directory, then create symlinks 
 echo "Moving any existing dotfiles from ~ to $olddir"
 for file in $files; do
-	mv -n ~/.$file ~/dotfiles_old/	#-n option means don't overwrite existing files in dotfiles_old
+	if [ -f ~/.$file ]; then
+		mv -n ~/.$file ~/dotfiles_old/	#-n option means don't overwrite existing files in dotfiles_old
+	fi
 
 	#if e.g. ~/.vimrc exists after mv command, then this script must've been run before w/ .vimrc included
 	if [ -f ~/.$file ]; then
@@ -27,9 +30,17 @@ for file in $files; do
 	else
 		echo "Creating symlink to $dir/$file in ~"
 		ln -s $dir/$file ~/.$file
+
+		if [ "$file" = "bashrc" ]; then
+			bashrc_link_created="true"
+		fi
 	fi
 done
 
 # source .bashrc
-echo "Sourcing .bashrc to guarantee any potential changes take effect immediately"
-source ~/.bashrc
+#echo "Sourcing .bashrc to guarantee any potential changes take effect immediately"
+#source ~/.bashrc	#I forgot once again that shell scripts will ignore this
+if [ "$bashrc_link_created" = "true" ]; then
+	printf "\nA symlink to $dir/bashrc was created. To complete the setup, please run the following command:\n\n"
+	printf "\tsource ~/.bashrc\n\n"
+fi
