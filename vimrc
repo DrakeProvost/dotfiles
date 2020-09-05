@@ -111,19 +111,21 @@ inoremap one<CR> one<Esc>O
 "autocmd FileType sh inoreab <buffer> do :call CloseSh('do', 'done', '\<until\>')<CR><C-o>z
 "autocmd FileType sh inoreab <buffer> do :call CloseSh('do', 'done', '\<select\>')<CR><C-o>z
 
-" (@author Drake Provost) Uncomment the following to load vim-plug
-" automatically
-if empty(glob('~/.vim/autoload/plug.vim'))
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
+if hostname() != "turing" && hostname() != "hopper"
+    " (@author Drake Provost) Uncomment the following to load vim-plug
+    " automatically
+    if empty(glob('~/.vim/autoload/plug.vim'))
+        silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+            \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+        autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+    endif
 
-" (@author Drake Provost) List plug-ins below to be loaded.
-call plug#begin()
-Plug 'farfanoide/vim-kivy'	" for kv formatting and syntax highlighting
-call plug#end()
-" (@author Drake Provost) undo the setting of vim-kivy plugin that displays $ at
-" end of line
-set listchars=""
-set nolist
+    " (@author Drake Provost) List plug-ins below to be loaded.
+    call plug#begin()
+    Plug 'farfanoide/vim-kivy'	" for kv formatting and syntax highlighting
+    call plug#end()
+    " (@author Drake Provost) undo the setting of vim-kivy plugin that displays $ at
+    " end of line
+    set listchars=""
+    set nolist
+endif
