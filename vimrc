@@ -129,3 +129,8 @@ if hostname() != "turing" && hostname() != "hopper"
     set listchars=""
     set nolist
 endif
+
+" (@author Drake Provost) Uncomment the following to change the default split
+" direction
+set splitbelow		" Split below instead of above
+set splitright		" Split right instead of left
