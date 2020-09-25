@@ -15,21 +15,22 @@ files="bash_aliases bashrc vimrc"	# list of files/folders to symlink in homedir
 
 # create dotfiles_old in homedir
 echo "Creating $olddir for backup of any existing dotfiles in ~"
-mkdir -p $olddir
+mkdir -p "$olddir"
 
 # move any existing dotfiles in homedir to dotfiles_old directory, then create symlinks 
 echo "Moving any existing dotfiles from ~ to $olddir"
 for file in $files; do
-	if [ -f ~/.$file ]; then
-		mv -n ~/.$file ~/dotfiles_old/	#-n option means don't overwrite existing files in dotfiles_old
+	# only mv the file if it exists and is not a symlink
+	if [ -f ~/."$file" ] && [ ! -L ~/."$file" ]; then
+		mv -n ~/."$file" "$olddir"	#-n option means don't overwrite existing files in dotfiles_old
 	fi
 
 	#if e.g. ~/.vimrc exists after mv command, then this script must've been run before w/ .vimrc included
-	if [ -f ~/.$file ]; then
+	if [ -f ~/."$file" ]; then
 		echo "Symlink to $dir/$file already exists"
 	else
 		echo "Creating symlink to $dir/$file in ~"
-		ln -s $dir/$file ~/.$file
+		ln -s "$dir"/"$file" ~/."$file"
 
 #		if [ "$file" = "bashrc" ]; then
 #			bashrc_link_created="true"
