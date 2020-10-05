@@ -130,6 +130,9 @@ fi
 if [ -f ~/.bashrc_local ]; then
     . ~/.bashrc_local
 else
-    touch .bashrc_local
+    touch ~/.bashrc_local
     printf "# This is a place to store all machine-specific bash settings (all added by Drake Provost).\n\n" >> .bashrc_local
 fi
+
+# This launches the VcXsrv X-server automatically for Docker
+export DISPLAY=$(grep -m 1 nameserver /etc/resolv.conf | awk '{print $2}'):0.0
