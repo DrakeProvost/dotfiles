@@ -134,3 +134,7 @@ endif
 " direction
 set splitbelow		" Split below instead of above
 set splitright		" Split right instead of left
+
+" (@author Drake Provost) Uncomment the following to disable to Windows
+" system bell in vim
+set visualbell
