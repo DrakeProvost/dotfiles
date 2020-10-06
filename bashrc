@@ -177,7 +177,7 @@ set_prompt ()
     else
         PS1+="$Green$CONTAINER_NAME$DarkGreen<${DarkGreen}DOCKER$DarkGreen:$DarkGreen\h$DarkGreen>"
     fi
-    PS1+="$White:$Blue\w"
+    PS1+="$Reset:$Blue\w"
     if [ -n "$(git_branch)" ]; then
         PS1+="$(git_clean)"
     fi
