@@ -134,5 +134,64 @@ else
     printf "# This is a place to store all machine-specific bash settings (all added by Drake Provost).\n\n" >> .bashrc_local
 fi
 
-# This launches the VcXsrv X-server automatically for Docker
-export DISPLAY=$(grep -m 1 nameserver /etc/resolv.conf | awk '{print $2}'):0.0
+# This launches the VcXsrv X-server automatically for Docker (on WSL2 only)
+# (FIXME: This causes delays in vim startup if an X-server is not reachable
+if [ "$USER" == "mddmprovost" ]; then
+    export DISPLAY=$(grep -m 1 nameserver /etc/resolv.conf | awk '{print $2}'):0.0
+fi
+
+# The following sets up some fancy stuff for prompt appearances (stolen from Ryan Lewis @luckierdodge)
+Red='\[\e[01;31m\]'
+Green='\[\e[01;32m\]'
+Yellow='\[\e[01;33m\]'
+Blue='\[\e[01;34m\]'
+Cyan='\[\e[01;36m\]'
+White='\[\e[01;37m\]'
+Orange='\[\e[00;33m\]'
+Purple='\[\e[00;35m\]'
+Reset='\[\e[00m\]'
+DarkGreen='\[\e[00;32m\]'
+git_branch()
+{
+    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'
+}
+git_clean()
+{
+    # If there are unstaged changes to commit, display the branch in a different color
+    if [[ $(git status --porcelain) == "" ]]; then
+        echo "$Blue.$Blue$(git_branch)"
+    else
+        echo "$Blue.$Blue$(git_branch)"
+    fi
+#    if [[ $(git status) == "" ]]; then
+#        echo "$Orange.$Green$(git_branch)"
+#    else
+#        echo "$Orange.$Orange$(git_branch)"
+#    fi
+}
+set_prompt ()
+{
+    PS1="$Green\u$Green@"
+    if [[ -z "$CONTAINER_NAME" ]]; then
+        PS1+="$Green\h"
+    else
+        PS1+="$Green$CONTAINER_NAME$DarkGreen<${DarkGreen}DOCKER$DarkGreen:$DarkGreen\h$DarkGreen>"
+    fi
+    PS1+="$White:$Blue\w"
+    if [ -n "$(git_branch)" ]; then
+        PS1+="$(git_clean)"
+    fi
+    PS1+="$Blue $ $Reset"
+#    PS1="$Cyan\u$Orange@"
+#    if [[ -z "$CONTAINER_NAME" ]]; then
+#        PS1+="$Blue\h"
+#    else
+#        PS1+="$Purple$CONTAINER_NAME$Orange<${Red}DOCKER$Orange:$Blue\h$Orange>"
+#    fi
+#    PS1+="$Orange($DarkGreen\w"
+#    if [ -n "$(git_branch)" ]; then
+#        PS1+="$(git_clean)"
+#    fi
+#    PS1+="$Orange)$Blue: $Reset"
+}
+PROMPT_COMMAND='set_prompt'
