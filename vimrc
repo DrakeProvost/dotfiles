@@ -53,16 +53,19 @@ if filereadable("/etc/vim/vimrc.local")
   source /etc/vim/vimrc.local
 endif
 
-" (@author Drake Provost) Uncomment the following to have Vim show a different
-" color scheme than the default
+" EVERYTHING BELOW THIS LINE ADDED BY DRAKE PROVOST
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Uncomment the following to have Vim show a different color scheme than 
+" the default
 colorscheme torte
 
-" (@author Drake Provost) Uncomment the following to have Vim autocomplete 
-" open braces for you while in insert mode
+" Uncomment the following to have Vim autocomplete open braces for you while
+" in insert mode
 inoremap {<CR> {<CR>}<Esc>ko
 
-" (@author Drake Provost) Uncomment the following to have Vim use kj instead
-" of <Esc> while in various modes:
+" Uncomment the following to have Vim use kj instead of <Esc> while in
+" various modes:
 " Esc in insert mode:
 inoremap kj <Esc>
 " Esc in visual mode:
@@ -72,8 +75,8 @@ vnoremap kj <Esc>
 " method of exiting which is Ctrl-C):
 cnoremap kj <C-C>
 
-" (@author Drake Provost) Uncomment the following to make it easier to end
-" control structures in shell scripts
+" Uncomment the following to make it easier to end control structures in shell 
+" scripts
 "function! CloseSh(start, end, before)
 "    " Entering the actual start
 "    exe"norm!i".a:start
@@ -112,29 +115,31 @@ inoremap one<CR> one<Esc>O
 "autocmd FileType sh inoreab <buffer> do :call CloseSh('do', 'done', '\<select\>')<CR><C-o>z
 
 if hostname() != "turing" && hostname() != "hopper"
-    " (@author Drake Provost) Uncomment the following to load vim-plug
-    " automatically
+    " Uncomment the following to load vim-plug automatically
     if empty(glob('~/.vim/autoload/plug.vim'))
         silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
             \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
         autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
     endif
 
-    " (@author Drake Provost) List plug-ins below to be loaded.
+    " List plug-ins below to be loaded.
     call plug#begin()
     Plug 'farfanoide/vim-kivy'	" for kv formatting and syntax highlighting
     call plug#end()
-    " (@author Drake Provost) undo the setting of vim-kivy plugin that displays $ at
+    " undo the setting of vim-kivy plugin that displays $ at
     " end of line
     set listchars=""
     set nolist
 endif
 
-" (@author Drake Provost) Uncomment the following to change the default split
-" direction
+" Uncomment the following to change the default split direction
 set splitbelow		" Split below instead of above
 set splitright		" Split right instead of left
 
-" (@author Drake Provost) Uncomment the following to disable to Windows
-" system bell in vim
+" Uncomment the following to disable to Windows system bell in vim
 set visualbell
+
+" Uncomment the following to allow normal mode tab completion for filenames
+" like how bash works (e.g. while using :s)
+set wildmode=longest,list
+set wildmenu
