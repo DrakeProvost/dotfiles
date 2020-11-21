@@ -116,13 +116,14 @@ fi
 ##############################################################
 
 # if present, source the ROS setup files
-if [ -f /opt/ros/melodic/setup.bash ]; then
-    . /opt/ros/melodic/setup.bash 
+if [ -f /opt/ros/foxy/setup.bash ]; then
+    . /opt/ros/foxy/setup.bash 
 fi
 
-# if present, source the ROS workspace environment setup file
-if [ -f ~/catkin_ws/devel/setup.bash ]; then
-    . ~/catkin_ws/devel/setup.bash 
+# if present, add colcon_cd to the list of commands for ROS2
+if [ -f /usr/share/colcon_cd/function/colcon_cd.sh ]; then
+    . /usr/share/colcon_cd/function/colcon_cd.sh 
+    export _colcon_cd_root=~/ros2_install
 fi
 
 # This is a place to store all machine-specific settings. Either source the file, or
