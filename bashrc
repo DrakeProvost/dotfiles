@@ -141,6 +141,15 @@ if [ "$USER" == "mddmprovost" ]; then
     export DISPLAY=$(grep -m 1 nameserver /etc/resolv.conf | awk '{print $2}'):0.0
 fi
 
+# This starts docker automatically if in WSL and not already in a container
+if [ "$USER" == "mddmprovost" ]; then
+    if [ ! -n "$CONTAINER_NAME" ]; then
+        if [ -n "`service docker status | grep not`" ]; then
+            sudo service docker start
+        fi
+    fi
+fi
+
 # The following sets up some fancy stuff for prompt appearances (stolen from Ryan Lewis @luckierdodge)
 Red='\[\e[01;31m\]'
 Green='\[\e[01;32m\]'
