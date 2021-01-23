@@ -114,6 +114,7 @@ inoremap one<CR> one<Esc>O
 "autocmd FileType sh inoreab <buffer> do :call CloseSh('do', 'done', '\<until\>')<CR><C-o>z
 "autocmd FileType sh inoreab <buffer> do :call CloseSh('do', 'done', '\<select\>')<CR><C-o>z
 
+" Uncomment the following for better kv formatting and syntax highlighting
 if hostname() != "turing" && hostname() != "hopper"
     " Uncomment the following to load vim-plug automatically
     if empty(glob('~/.vim/autoload/plug.vim'))
@@ -143,3 +144,9 @@ set visualbell
 " like how bash works (e.g. while using :s)
 set wildmode=longest,list
 set wildmenu
+
+" Uncomment the following to prevent vim from using the X clipboard (if vim
+" has sluggish startup from failure to find X server)
+if hostname() == "DESKTOP-21RFLUN"
+    set clipboard=exclude:.*
+endif
