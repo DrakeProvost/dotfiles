@@ -4,8 +4,8 @@
 #alias aliasname='commands'
 
 # ssh aliases
-alias hopper='ssh z1872355@hopper.cs.niu.edu'
-alias turing='ssh z1872355@turing.cs.niu.edu'
+alias hopper='ssh -Y z1872355@hopper.cs.niu.edu'
+alias turing='ssh -Y z1872355@turing.cs.niu.edu'
 alias shatterdome='ssh -X drakeprovost@10.156.209.2'
 alias locard='ssh pi@locard.local'	#requires mDNS (on Windows, download iTunes to resolve lack of native mDNS support)
 
